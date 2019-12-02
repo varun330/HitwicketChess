@@ -69,12 +69,58 @@ class Chess:
 
 a=input("Enter pieces for player 1 ").split()
 A=[]
-for i in a:
-    if i=="h1":
-        A.append(Piece())
-# A=[Piece("A-"+a[i],1,4,i,0) for i in range(5)]
-# a=input("Enter pieces for player 2 ").split()
-# B=[Piece("B-"+a[i],2,0,i,0) for i in range(5)]
-# del(a)
-# game = Chess(A,B)
-# game.printBoard()            
+for i in range(len(a)):
+    h=0
+    if a[i]=="h1":
+        h=1
+    elif a[i]=="h2":
+        h=2
+    elif a[i]=="h3":
+        h=3
+    A.append(Piece("A-"+a[i],1,4,i,h))
+
+a=input("Enter pieces for player 1 ").split()
+B=[]
+for i in range(len(a)):
+    h=0
+    if a[i]=="h1":
+        h=1
+    elif a[i]=="h2":
+        h=2
+    elif a[i]=="h3":
+        h=3
+    B.append(Piece("B-"+a[i],2,0,i,h))
+
+game = Chess(A,B)
+game.printBoard()
+while(True):
+    if(game.flag):
+        a = input("Player1 move: ").split(":")
+        p = game.getPieceByName("A-"+a[0])
+        if p==None:
+            print("Piece not found")
+        elif p.hero==0:
+            if a[1]=="F":
+                game.moveUp(p)
+            elif a[1]=="B":
+                game.moveDown(p)
+            elif a[1]=="L":
+                game.moveLeft(p)
+            elif a[1]=="R":
+                game.moveRight(p)
+    else:
+        a = input("Player2 move: ").split(":")
+        p = game.getPieceByName("B-"+a[0])
+        if p==None:
+            print("Piece not found")
+        elif p.hero==0:
+            if a[1]=="F":
+                game.moveDown(p)
+            elif a[1]=="B":
+                game.moveUp(p)
+            elif a[1]=="L":
+                game.moveRight(p)
+            elif a[1]=="R":
+                game.moveLeft(p)
+    game.printBoard()    
+    
