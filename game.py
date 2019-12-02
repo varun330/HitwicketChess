@@ -26,6 +26,7 @@ class Chess:
             for j in i:
                 line+=" "+j.name+" "
             print(line)
+        print("\n")
 
     def moveUp(self, p):
         if p.x==0:
@@ -34,6 +35,7 @@ class Chess:
             print("Own piece at Position")
         else:
             self.board[p.x-1][p.y]=self.board[p.x][p.y]
+            self.board[p.x][p.y]=Piece("-",0,0,0,0)
             p.x-=1
             self.flag = not self.flag
 
@@ -44,6 +46,7 @@ class Chess:
             print("Own piece at Position")
         else:
             self.board[p.x+1][p.y]=self.board[p.x][p.y]
+            self.board[p.x][p.y]=Piece("-",0,0,0,0)
             p.x+=1
             self.flag = not self.flag
 
@@ -54,6 +57,7 @@ class Chess:
             print("Own piece at Position")
         else:
             self.board[p.x][p.y-1]=self.board[p.x][p.y]
+            self.board[p.x][p.y]=Piece("-",0,0,0,0)
             p.y-=1
             self.flag = not self.flag
     
@@ -64,8 +68,17 @@ class Chess:
             print("Own piece at Position")
         else:
             self.board[p.x][p.y+1]=self.board[p.x][p.y]
+            self.board[p.x][p.y]=Piece("-",0,0,0,0)
             p.y+=1
             self.flag = not self.flag
+
+    def countPlayerPieces(self,player):
+        count=0
+        for i in self.board:
+            for j in i:
+                if j.player=player:
+                    count+=1
+        return count
 
 a=input("Enter pieces for player 1 ").split()
 A=[]
@@ -108,6 +121,11 @@ while(True):
                 game.moveLeft(p)
             elif a[1]=="R":
                 game.moveRight(p)
+                
+        if game.countPlayerPieces(2)==0:
+            print("Player 1 wins")
+            game.printBoard()
+            break
     else:
         a = input("Player2 move: ").split(":")
         p = game.getPieceByName("B-"+a[0])
@@ -122,5 +140,11 @@ while(True):
                 game.moveRight(p)
             elif a[1]=="R":
                 game.moveLeft(p)
+
+        if game.countPlayerPieces(1)==0:
+            print("Player 2 wins")
+            game.printBoard()
+            break
+
     game.printBoard()    
     
