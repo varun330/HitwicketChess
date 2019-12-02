@@ -76,7 +76,7 @@ class Chess:
         count=0
         for i in self.board:
             for j in i:
-                if j.player=player:
+                if j.player==player:
                     count+=1
         return count
 
@@ -121,7 +121,7 @@ while(True):
                 game.moveLeft(p)
             elif a[1]=="R":
                 game.moveRight(p)
-                
+
         if game.countPlayerPieces(2)==0:
             print("Player 1 wins")
             game.printBoard()
