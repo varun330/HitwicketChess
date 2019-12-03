@@ -1,3 +1,4 @@
+from Pieces import Piece
 class Hero1(Piece):
     def __init__(self, name, player, x, y):
         super().__init__(name, player, x, y)

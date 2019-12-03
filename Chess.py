@@ -1,3 +1,4 @@
+from Pieces import *
 class Chess:
     def __init__(self,n,A,B):
         self.n=n
