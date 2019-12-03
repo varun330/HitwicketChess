@@ -1,16 +1,213 @@
 class Piece:
-    def __init__(self, name, player, x, y, hero):
+    def __init__(self, name, player, x, y):
         self.name=name
         self.player=player
         self.x=x
         self.y=y
-        self.hero=hero
+        
+    
+class NormalPiece(Piece):
+    def __init__(self, name, player, x, y):
+        super().__init__(name, player, x, y)
+
+    def move(self,board,direction):
+        if self.player==1:
+            if direction=="F":
+                if self.x==0:
+                    print("Out of Board Move")
+                elif board.board[self.x-1][self.y].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x-1][self.y]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    self.x-=1
+                    board.flag = not board.flag
+
+            elif direction=="B":
+                if self.x==board.n-1:
+                    print("Out of Board Move")
+                elif board.board[self.x+1][self.y].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x+1][self.y]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    self.x+=1
+                    board.flag = not board.flag
+            
+            elif direction=="L":
+                if self.y==0:
+                    print("Out of Board Move")
+                elif board.board[self.x][self.y-1].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x][self.y-1]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    self.y-=1
+                    board.flag = not board.flag
+
+            elif direction=="R":
+                if self.y==board.n-1:
+                    print("Out of Board Move")
+                elif board.board[self.x][self.y+1].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x][self.y+1]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    self.y+=1
+                    board.flag = not board.flag
+        else:
+            if direction=="B":
+                if self.x==0:
+                    print("Out of Board Move")
+                elif board.board[self.x-1][self.y].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x-1][self.y]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    self.x-=1
+                    board.flag = not board.flag
+
+            elif direction=="F":
+                if self.x==board.n-1:
+                    print("Out of Board Move")
+                elif board.board[self.x+1][self.y].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x+1][self.y]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    self.x+=1
+                    board.flag = not board.flag
+            
+            elif direction=="R":
+                if self.y==0:
+                    print("Out of Board Move")
+                elif board.board[self.x][self.y-1].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x][self.y-1]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    self.y-=1
+                    board.flag = not board.flag
+
+            elif direction=="L":
+                if self.y==board.n-1:
+                    print("Out of Board Move")
+                elif board.board[self.x][self.y+1].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x][self.y+1]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    self.y+=1
+                    board.flag = not board.flag
+
+class Hero1(Piece):
+    def __init__(self, name, player, x, y):
+        super().__init__(name, player, x, y)
+    
+    def move(self,board,direction):
+        if self.player==1:
+            if direction=="F":
+                if self.x<=1:
+                    print("Out of Board Move")
+                elif board.board[self.x-1][self.y].player==self.player or board.board[self.x-2][self.y].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x-2][self.y]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    board.board[self.x-1][self.y]=Piece("-",0,0,0)
+                    self.x-=2
+                    board.flag = not board.flag
+
+            elif direction=="B":
+                if self.x>=board.n-2:
+                    print("Out of Board Move")
+                elif board.board[self.x+1][self.y].player==self.player or board.board[self.x+2][self.y].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x+2][self.y]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    board.board[self.x+1][self.y]=Piece("-",0,0,0)
+                    self.x+=2
+                    board.flag = not board.flag
+            
+            elif direction=="L":
+                if self.y<=1:
+                    print("Out of Board Move")
+                elif board.board[self.x][self.y-1].player==self.player or board.board[self.x][self.y-2].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x][self.y-2]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    board.board[self.x][self.y-1]=Piece("-",0,0,0)
+                    self.y-=2
+                    board.flag = not board.flag
+
+            elif direction=="R":
+                if self.y>=board.n-2:
+                    print("Out of Board Move")
+                elif board.board[self.x][self.y+1].player==self.player or board.board[self.x][self.y+2].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x][self.y+2]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    board.board[self.x][self.y+1]=Piece("-",0,0,0)
+                    self.y+=2
+                    board.flag = not board.flag
+        else:
+            if direction=="B":
+                if self.x<=1:
+                    print("Out of Board Move")
+                elif board.board[self.x-1][self.y].player==self.player or board.board[self.x-2][self.y].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x-2][self.y]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    board.board[self.x-1][self.y]=Piece("-",0,0,0)
+                    self.x-=2
+                    board.flag = not board.flag
+
+            elif direction=="F":
+                if self.x>=board.n-2:
+                    print("Out of Board Move")
+                elif board.board[self.x+1][self.y].player==self.player or board.board[self.x+2][self.y].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x+2][self.y]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    board.board[self.x+1][self.y]=Piece("-",0,0,0)
+                    self.x+=2
+                    board.flag = not board.flag
+            
+            elif direction=="R":
+                if self.y<=1:
+                    print("Out of Board Move")
+                elif board.board[self.x][self.y-1].player==self.player or board.board[self.x][self.y-2].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x][self.y-2]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    board.board[self.x][self.y-1]=Piece("-",0,0,0)
+                    self.y-=2
+                    board.flag = not board.flag
+
+            elif direction=="L":
+                if self.y>=board.n-2:
+                    print("Out of Board Move")
+                elif board.board[self.x][self.y+1].player==self.player or board.board[self.x][self.y+2].player==self.player:
+                    print("Own piece at Position")
+                else:
+                    board.board[self.x][self.y+2]=board.board[self.x][self.y]
+                    board.board[self.x][self.y]=Piece("-",0,0,0)
+                    board.board[self.x][self.y+1]=Piece("-",0,0,0)
+                    self.y+=2
+                    board.flag = not board.flag
 
 class Chess:
-    def __init__(self,A,B):
-        self.board = [[Piece("-",0,0,0,0) for i in range(5)] for i in range(5)]
+    def __init__(self,n,A,B):
+        self.n=n
+        self.board = [[Piece("-",0,0,0) for i in range(n)] for i in range(n)]
         self.board[0]=B
-        self.board[4]=A
+        self.board[n-1]=A
         self.flag=True
 
     def getPieceByName(self,name):
@@ -28,50 +225,6 @@ class Chess:
             print(line)
         print("\n")
 
-    def moveUp(self, p):
-        if p.x==0:
-            print("Out of Board Move")
-        elif self.board[p.x-1][p.y].player==p.player:
-            print("Own piece at Position")
-        else:
-            self.board[p.x-1][p.y]=self.board[p.x][p.y]
-            self.board[p.x][p.y]=Piece("-",0,0,0,0)
-            p.x-=1
-            self.flag = not self.flag
-
-    def moveDown(self, p):
-        if p.x==4:
-            print("Out of Board Move")
-        elif self.board[p.x+1][p.y].player==p.player:
-            print("Own piece at Position")
-        else:
-            self.board[p.x+1][p.y]=self.board[p.x][p.y]
-            self.board[p.x][p.y]=Piece("-",0,0,0,0)
-            p.x+=1
-            self.flag = not self.flag
-
-    def moveLeft(self, p):
-        if p.y==0:
-            print("Out of Board Move")
-        elif self.board[p.x][p.y-1].player==p.player:
-            print("Own piece at Position")
-        else:
-            self.board[p.x][p.y-1]=self.board[p.x][p.y]
-            self.board[p.x][p.y]=Piece("-",0,0,0,0)
-            p.y-=1
-            self.flag = not self.flag
-    
-    def moveRight(self, p):
-        if p.y==4:
-            print("Out of Board Move")
-        elif self.board[p.x][p.y+1].player==p.player:
-            print("Own piece at Position")
-        else:
-            self.board[p.x][p.y+1]=self.board[p.x][p.y]
-            self.board[p.x][p.y]=Piece("-",0,0,0,0)
-            p.y+=1
-            self.flag = not self.flag
-
     def countPlayerPieces(self,player):
         count=0
         for i in self.board:
@@ -83,28 +236,29 @@ class Chess:
 a=input("Enter pieces for player 1 ").split()
 A=[]
 for i in range(len(a)):
-    h=0
     if a[i]=="h1":
-        h=1
-    elif a[i]=="h2":
-        h=2
-    elif a[i]=="h3":
-        h=3
-    A.append(Piece("A-"+a[i],1,4,i,h))
+        A.append(Hero1("A-"+a[i],1,len(a)-1,i))
+    else:
+        A.append(NormalPiece("A-"+a[i],1,len(a)-1,i))
+    # elif a[i]=="h2":
+    #     h=2
+    # elif a[i]=="h3":
+    #     h=3
+    
 
 a=input("Enter pieces for player 1 ").split()
 B=[]
 for i in range(len(a)):
-    h=0
     if a[i]=="h1":
-        h=1
-    elif a[i]=="h2":
-        h=2
-    elif a[i]=="h3":
-        h=3
-    B.append(Piece("B-"+a[i],2,0,i,h))
+        B.append(Hero1("B-"+a[i],2,0,i))
+    else:
+        B.append(NormalPiece("B-"+a[i],2,0,i))
+    # elif a[i]=="h2":
+    #     h=2
+    # elif a[i]=="h3":
+    #     h=3
 
-game = Chess(A,B)
+game = Chess(len(a),A,B)
 game.printBoard()
 while(True):
     if(game.flag):
@@ -112,15 +266,8 @@ while(True):
         p = game.getPieceByName("A-"+a[0])
         if p==None:
             print("Piece not found")
-        elif p.hero==0:
-            if a[1]=="F":
-                game.moveUp(p)
-            elif a[1]=="B":
-                game.moveDown(p)
-            elif a[1]=="L":
-                game.moveLeft(p)
-            elif a[1]=="R":
-                game.moveRight(p)
+        else:
+            p.move(game,a[1])
 
         if game.countPlayerPieces(2)==0:
             print("Player 1 wins")
@@ -131,16 +278,9 @@ while(True):
         p = game.getPieceByName("B-"+a[0])
         if p==None:
             print("Piece not found")
-        elif p.hero==0:
-            if a[1]=="F":
-                game.moveDown(p)
-            elif a[1]=="B":
-                game.moveUp(p)
-            elif a[1]=="L":
-                game.moveRight(p)
-            elif a[1]=="R":
-                game.moveLeft(p)
-
+        else:
+            p.move(game,a[1])
+            
         if game.countPlayerPieces(1)==0:
             print("Player 2 wins")
             game.printBoard()
