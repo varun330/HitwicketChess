@@ -45,7 +45,7 @@ class NormalPiece(Piece):
             board.flag = not board.flag
 
     def __moveR(self,board):
-         if self.y==board.n-1:
+        if self.y==board.n-1:
             print("Out of Board Move")
         elif board.board[self.x][self.y+1].player==self.player:
             print("Own piece at Position")
@@ -109,7 +109,6 @@ class Hero1(Piece):
             self.x+=2
             board.flag = not board.flag
         
-    def __move
 
     def move(self,board,direction):
         if self.player==1:
@@ -287,10 +286,7 @@ class Hero3(Piece):
     def __init__(self, name, player, x, y):
         super().__init__(name, player,x,y)
     
-    def move(self,board,direction):
-        if self.player==1:
-            if direction=="FL":
-                if self.x
+   
             
 
 class Chess:
