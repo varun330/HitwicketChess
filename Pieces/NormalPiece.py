@@ -1,74 +1,30 @@
 from Pieces import Piece
+from Position import Position
 class NormalPiece(Piece):
-    def __init__(self, name, player, x, y):
-        super().__init__(name, player, x, y)
+    def __init__(self, name, player, position,step=1):
+        super().__init__(name, player, position,step)
 
-    def __moveF(self, board):
-        if self.x == 0:
-            print("Out of Board Move")
-        elif board.board[self.x-1][self.y].player==self.player:
-            print("Own piece at Position")
-        else:
-            board.board[self.x-1][self.y]=board.board[self.x][self.y]
-            board.board[self.x][self.y]=Piece("-",0,0,0)
-            self.x-=1
-            board.flag = not board.flag
+    def move(self):
+        self.oldPosition=self.currentPosition
+        self.currentPosition=self.newPosition
+
+    def isValidMove(self, move):
+        move=move.lower()
+        if move not in "flbr":
+            print("Invalid Move", "Move Command for Piece should only be one of (F,B,L,R)")
+            return False
+        return True
     
-    def __moveB(self,board):
-        if self.x==board.n-1:
-            print("Out of Board Move")
-        elif board.board[self.x+1][self.y].player==self.player:
-            print("Own piece at Position")
-        else:
-            board.board[self.x+1][self.y]=board.board[self.x][self.y]
-            board.board[self.x][self.y]=Piece("-",0,0,0)
-            self.x+=1
-            board.flag = not board.flag
+    def predictMove(self,move):
+        self.newPosition = Position.Position(self.currentPosition.row, self.currentPosition.column)
+        move = move.lower()
+        if move == "f":
+            self.moveForward(self.newPosition)
+        elif move == "b":
+            self.moveBackward(self.newPosition)
+        elif move == "l":
+            self.moveLeft(self.newPosition)
+        elif move == "r":
+            self.moveRight(self.newPosition)
 
-    def __moveL(self,board):
-        if self.y==0:
-            print("Out of Board Move")
-        elif board.board[self.x][self.y-1].player==self.player:
-            print("Own piece at Position")
-        else:
-            board.board[self.x][self.y-1]=board.board[self.x][self.y]
-            board.board[self.x][self.y]=Piece("-",0,0,0)
-            self.y-=1
-            board.flag = not board.flag
-
-    def __moveR(self,board):
-        if self.y==board.n-1:
-            print("Out of Board Move")
-        elif board.board[self.x][self.y+1].player==self.player:
-            print("Own piece at Position")
-        else:
-            board.board[self.x][self.y+1]=board.board[self.x][self.y]
-            board.board[self.x][self.y]=Piece("-",0,0,0)
-            self.y+=1
-            board.flag = not board.flag
-
-    def move(self,board,direction):
-        if self.player==1:
-            if direction=="F":
-                self.__moveF(board)
-
-            elif direction=="B":
-                self.__moveB(board)
-            
-            elif direction=="L":
-                self.__moveL(board)
-
-            elif direction=="R":
-               self.__moveR(board)
-        else:
-            if direction=="B":
-                self.__moveF(board)
-
-            elif direction=="F":
-                self.__moveB(board)
-            
-            elif direction=="R":
-                self.__moveL(board)
-
-            elif direction=="L":
-                self.__moveR(board)
+        
